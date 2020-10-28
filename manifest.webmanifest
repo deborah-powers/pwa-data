@@ -1,0 +1,15 @@
+{
+	"name": "base pour pwa",
+	"short_name": "base",
+	"description": "structure basique de mes pwa",
+	"icons": [
+		{	"src": "utils/icone-192.png", "sizes": "192x192", "type": "image/png"	},
+		{	"src": "utils/icone-512.png", "sizes": "512x512", "type": "image/png"	}
+	],
+	"version": "1",
+	"lang": "fr",
+	"start_url": "/pwa-data/index.html",
+	"display": "standalone",
+	"background_color": "ivory",
+	"theme_color": "ivory"
+}
