@@ -1,8 +1,8 @@
 /* framework pour utiliser des templates html.
-je me suis inspirée de la foncionnalité de base d'angularjs.
-display-test démontre son utilisation.
+je me suis inspirÃ©e de la foncionnalitÃ© de base d'angularjs.
+display-test dÃ©montre son utilisation.
 
-dépendence:
+dÃ©pendence:
 	display.css
 	text.js
 
@@ -18,7 +18,7 @@ function logDebug (message){ if (logStates.indexOf (logState) >=0) console.log (
 var debbyPlay ={
 	// constantes pour afficher un popup de calendrier
 	yearList: [ '2018', '2019', '2020' ],
-	monthList: [ 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre' ],
+	monthList: [ 'janvier', 'fÃ©vrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre' ],
 	dayList: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31' ]
 };
 HTMLElement.prototype.init = function(){
@@ -52,7 +52,7 @@ function conditionnal(){
 	for (var t=0; t< tagList.length; t++) if (tagList[t].getAttribute ('if') &&! eval (tagList[t].getAttribute ('if')))
 		tagList[t].className = 'hidden';
 }
-// afficher des sélecteurs. la target de funcRes est une string
+// afficher des sÃ©lecteurs. la target de funcRes est une string
 HTMLElement.prototype.createSelection = function(){
 	var selectList = this.getElementsByTagName ('selection');
 	var title, option, varName, callback;
@@ -97,9 +97,9 @@ HTMLElement.prototype.createCarousel = function(){
 		});
 }}
 showSelectionTitle = function (selection, option){
-	/* lorsque le changement d'option necéssite de recharger le conteneur de la sélection,
-	le titre affiché reprend la valeur par défaut, et non celle de l'option sélectionnée.
-	showTitle est appelée après le rechargement (load) et permet d'afficher la bonne option.
+	/* lorsque le changement d'option necÃ©ssite de recharger le conteneur de la sÃ©lection,
+	le titre affichÃ© reprend la valeur par dÃ©faut, et non celle de l'option sÃ©lectionnÃ©e.
+	showTitle est appelÃ©e aprÃ¨s le rechargement (load) et permet d'afficher la bonne option.
 	*/
 	selection.children[0].innerHTML = option;
 }
@@ -176,7 +176,7 @@ useJson = function (jsonFile){
 	xhttp.open ('GET', jsonFile, false);
 	xhttp.send();
 	var res = null;
-	if (xhttp.status ==200){
+	if (xhttp.status ==200 || xhttp.status ==0){
 		var resTmp = JSON.parse (xhttp.responseText);
 		res = resTmp;
 	}
@@ -243,7 +243,7 @@ useTsv = function (tsvFile){
 	}
 	return res;
 }
-// ________________________ fonctions appelées dans les précédentes ________________________
+// ________________________ fonctions appelÃ©es dans les prÃ©cÃ©dentes ________________________
 
 // conserver le template de la page afin de la recharger
 HTMLElement.prototype.setModel = function(){
@@ -289,7 +289,7 @@ HTMLElement.prototype.getModel = function(){
 		}
 		this.setModel();
 }}
-// fonctions gérant mes sélecteurs
+// fonctions gÃ©rant mes sÃ©lecteurs
 updateSelection = function (event){
 	var title = event.target.parentElement.getElementsByTagName ('p')[0];
 	title.innerText = event.target.innerText;
@@ -339,10 +339,15 @@ HTMLElement.prototype.setInput = function(){
 }}
 function loadInput (event){
 	var varName = event.target.getAttribute ('model').slice (9,-2);
-	debbyPlay [varName] = event.target.value;
+	debbyPlay[varName] = event.target.value;
 	var nodeList = document.body.findContainerModel (varName);
-	for (var n=0; n< nodeList.length; n++) nodeList[n].load();
+	for (var n=0; n< nodeList.length; n++) nodeList[n].loadInputValue (varName, debbyPlay[varName]);
 	event.target.addEventListener ('mouseleave', loadInput);
+}
+HTMLElement.prototype.loadInputValue = function (varName, value){
+	if (this.tagName =='P') console.log ('coucou', this.getAttribute ('model'));
+	this.getModel();
+	this.printVar (varName, value);
 }
 // affichage de base
 HTMLElement.prototype.clean = function(){
@@ -427,14 +432,14 @@ useTemplateAssync = function (tagName, id){
 		tagDst.innerHTML = templateSrc.innerHTML;
 }}
 HTMLElement.prototype.printList = function (varName, value){
-	// afficher une liste imbriquée
+	// afficher une liste imbriquÃ©e
 	if (value.constructor.name != 'Array' || value.length ==0) return;
 	var nodeList = this.findContainerParenthesis (varName);
 	if (! nodeList) nodeList =[];
 	var nodeListTmp = this.findContainerFor (varName);
 	if (nodeListTmp) for (var c in nodeListTmp) nodeList.push (nodeListTmp[c]);
 	if (! nodeList) return;
-	// récupérer les conteneurs parents, pour les listes imbriquées
+	// rÃ©cupÃ©rer les conteneurs parents, pour les listes imbriquÃ©es
 	var container;
 	if (value[0].constructor.name == 'Object') for (var n=0; n< nodeList.length; n++){
 		for (var v=0; v< value.length -1; v++){
@@ -489,7 +494,7 @@ HTMLElement.prototype.findContainerModel = function (varName){
 	return nodeList;
 }
 HTMLElement.prototype.findContainerParenthesis = function (varName){
-	// retrouver le noeud contenant directement la variable, avec les parenthèses
+	// retrouver le noeud contenant directement la variable, avec les parenthÃ¨ses
 	if (! this.outerHTML.contain ('(('+ varName +'))') &&! this.outerHTML.contain ('(('+ varName +'.')) return null;
 	var nbOcurencies = this.outerHTML.count ('(('+ varName +'))');
 	nbOcurencies += this.outerHTML.count ('(('+ varName +'.');
@@ -508,8 +513,8 @@ HTMLElement.prototype.findContainerParenthesis = function (varName){
 	return nodeList;
 }
 HTMLElement.prototype.findContainerList = function (value){
-	/* vérifier si une liste est imbriquée
-	node est le conteneur trouvé avec findContainerParenthesis
+	/* vÃ©rifier si une liste est imbriquÃ©e
+	node est le conteneur trouvÃ© avec findContainerParenthesis
 	*/
 	if (value.constructor.name == 'Array' && value[0].constructor.name == 'Array'){
 		node = this.parentElement;

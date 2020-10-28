@@ -8,6 +8,7 @@ const filesToCache =[
 	'/pwa-data/utils/debbyPlay.css',
 	'/pwa-data/utils/debbyPlay.js',
 	'/pwa-data/utils/text.js',
+	'/pwa-data/idb-script.js',
 	'/pwa-data/service-launcher.js'
 ];
 // mettre en cache le contenu de l'app
