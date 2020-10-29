@@ -25,8 +25,8 @@
 	button { min-width: 3em; }
 	a { display: block; }
 </style></head><body>
-	<h1>la librairie</h1>
-	<p>tester la création d'une pwa utilisant indexed-db</p>
+	<button id='install-pwa'>installer l'application</button>
+	<h1>utiliser indexedDB avec ma pwa, afin de gérer les données de l'utilisateur</h1>
 	<a href='https://developer.mozilla.org/en-US/docs/Web/API/indexedDB_API/Using_indexedDB'>infos de mozilla</a>
 	<a href='https://www.tutorialspoint.com/html5/html5_indexedDB.htm'>tutorial point</a>
 	<h2>entrez un nouveau livre</h2>
@@ -44,7 +44,6 @@
 		<tr for='books'>
 			<td>(( autor ))</td><td>(( title ))</td><td><button onclick='selBook("(( code ))")'>(( code ))</button></td><td>(( date ))</td><td>(( price ))</td><td><button onclick='delBook("(( code ))")'>X</button></td></tr>
 	</table>
-	<button id='install-pwa'>installer l'application</button>
-	<script type='text/javascript' src='idb-script.js'></script>
+	<script type='text/javascript' src='idb-code.js'></script>
 	<script type='text/javascript' src='service-launcher.js'></script>
 </body></html>
